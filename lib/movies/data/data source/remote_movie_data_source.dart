@@ -10,7 +10,7 @@ abstract class BaseRemoteMovieDataSource {
   Future<List<MovieModel>> getTopRatedMovies();
 }
 
-class RemoteMovieDataSource extends BaseRemoteMovieDataSource {
+class RemoteMovieDataSourceImp extends BaseRemoteMovieDataSource {
   // Methods
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {

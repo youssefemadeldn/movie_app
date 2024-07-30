@@ -1,7 +1,7 @@
 import 'package:movie_app/movies/domain/entities/movie.dart';
 
 class MovieModel extends Movie {
-  MovieModel({
+  const MovieModel({
     required super.id,
     required super.title,
     required super.backdropPath,

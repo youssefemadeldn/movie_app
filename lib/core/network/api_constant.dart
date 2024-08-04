@@ -10,4 +10,8 @@ class ApiConstant {
 
   static const String topRatedMoviesUrl =
       "$baseUrl/movie/top_rated?api_key=$apiKey";
+
+  static const String baseImageUrl = "https://image.tmdb.org/t/p/w500";
+
+  static String imageUrl(String path) => "$baseImageUrl$path";
 }

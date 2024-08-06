@@ -16,16 +16,15 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     on<GetNowPlayingMoviesEvent>(
       (event, emit) async {
         final result = await getNowPlayingMoviesUseCase.execute();
-        emit(const MovieState(nowPlayingState: RequestState.loaded));
         result.fold(
           (failure) => emit(
-            MovieState(
+            state.copWith(
               nowPlayingState: RequestState.error,
               nowPlayingMessage: failure.message,
             ),
           ),
           (movies) => emit(
-            MovieState(
+            state.copWith(
               nowPlayingState: RequestState.loaded,
               nowPlayingMovies: movies,
             ),
@@ -40,12 +39,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
         result.fold(
           (failure) => emit(
-            MovieState(
+            state.copWith(
               popularState: RequestState.error,
               popularMessage: failure.message,
             ),
           ),
-          (movies) => MovieState(
+          (movies) => state.copWith(
             popularState: RequestState.loaded,
             popularMovies: movies,
           ),

@@ -47,7 +47,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           popularMessage: failure.message,
         ),
       ),
-      (movies) => MovieState(
+      (movies) => state.copWith(
         popularState: RequestState.loaded,
         popularMovies: movies,
       ),

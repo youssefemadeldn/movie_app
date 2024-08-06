@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/network/api_constant.dart';
-import 'package:movie_app/core/utils/6.1%20dummy.dart';
 import 'package:movie_app/core/utils/enum.dart';
 import 'package:movie_app/movies/presentation/controllers/movie_bloc.dart';
 import 'package:movie_app/movies/presentation/controllers/movie_state.dart';

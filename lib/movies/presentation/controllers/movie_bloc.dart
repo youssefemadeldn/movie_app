@@ -11,7 +11,6 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       (event, emit) async {
         final result = await getNowPlayingMoviesUseCase.execute();
         emit(const MovieState(nowPlayingState: RequestState.loaded));
-        print(result);
         result.fold(
           (ifLeft) => emit(
             MovieState(

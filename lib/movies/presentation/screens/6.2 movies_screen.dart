@@ -6,15 +6,16 @@ import 'package:movie_app/movies/presentation/components/now_playing_component.d
 import 'package:movie_app/movies/presentation/components/popular_component.dart';
 import 'package:movie_app/movies/presentation/components/top_rated_component.dart';
 import 'package:movie_app/movies/presentation/controllers/movie_bloc.dart';
+import 'package:movie_app/movies/presentation/controllers/movie_event.dart';
 
 class MainMoviesScreen extends StatelessWidget {
   const MainMoviesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print("build");
+    print("build => MainMoviesScreen");
     return BlocProvider(
-      create: (context) => sl<MovieBloc>(),
+      create: (context) => sl<MovieBloc>()..add(GetNowPlayingMoviesEvent()),
       child: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: SingleChildScrollView(

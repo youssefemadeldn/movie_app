@@ -28,9 +28,9 @@ class PopularComponent extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: state.popularMovies.length,
+              itemCount: state.nowPlayingMovies.length,
               itemBuilder: (context, index) {
-                final movie = state.popularMovies[index];
+                final movie = state.nowPlayingMovies[index];
                 return Container(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: InkWell(

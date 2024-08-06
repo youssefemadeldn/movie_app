@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/utils/enum.dart';
 import 'package:movie_app/movies/domain/use%20cases/get_now_playing_movies_use_case.dart';
@@ -13,43 +14,59 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   MovieBloc(this.getNowPlayingMoviesUseCase, this.getPopularMoviesUseCase,
       this.getTopRatedMoviesUseCase)
       : super(const MovieState()) {
-    on<GetNowPlayingMoviesEvent>(
-      (event, emit) async {
-        final result = await getNowPlayingMoviesUseCase.execute();
-        result.fold(
-          (failure) => emit(
-            state.copWith(
-              nowPlayingState: RequestState.error,
-              nowPlayingMessage: failure.message,
-            ),
-          ),
-          (movies) => emit(
-            state.copWith(
-              nowPlayingState: RequestState.loaded,
-              nowPlayingMovies: movies,
-            ),
-          ),
-        );
-      },
+    on<GetNowPlayingMoviesEvent>(getNowPlayingMovies);
+    on<GetPopularMoviesEvent>(getPopularMovies);
+    on<GetTopRatedMoviesEvent>(getTopRatedMovies);
+  }
+
+  FutureOr<void> getNowPlayingMovies(event, emit) async {
+    final result = await getNowPlayingMoviesUseCase.execute();
+    result.fold(
+      (failure) => emit(
+        state.copWith(
+          nowPlayingState: RequestState.error,
+          nowPlayingMessage: failure.message,
+        ),
+      ),
+      (movies) => emit(
+        state.copWith(
+          nowPlayingState: RequestState.loaded,
+          nowPlayingMovies: movies,
+        ),
+      ),
     );
+  }
 
-    on<GetPopularMoviesEvent>(
-      (event, emit) async {
-        final result = await getPopularMoviesUseCase.execute();
+  FutureOr<void> getPopularMovies(event, emit) async {
+    final result = await getPopularMoviesUseCase.execute();
 
-        result.fold(
-          (failure) => emit(
-            state.copWith(
-              popularState: RequestState.error,
-              popularMessage: failure.message,
-            ),
-          ),
-          (movies) => state.copWith(
-            popularState: RequestState.loaded,
-            popularMovies: movies,
-          ),
-        );
-      },
+    result.fold(
+      (failure) => emit(
+        state.copWith(
+          popularState: RequestState.error,
+          popularMessage: failure.message,
+        ),
+      ),
+      (movies) => MovieState(
+        popularState: RequestState.loaded,
+        popularMovies: movies,
+      ),
+    );
+  }
+
+  FutureOr<void> getTopRatedMovies(event, emit) async {
+    final result = await getTopRatedMoviesUseCase.execute();
+
+    result.fold(
+      (failure) => emit(
+        state.copWith(
+            topRatedMessage: failure.message,
+            topRatedState: RequestState.error),
+      ),
+      (movies) => emit(
+        state.copWith(
+            topRatedState: RequestState.loaded, topRatedMovies: movies),
+      ),
     );
   }
 }
